@@ -1,0 +1,123 @@
+---
+title: "Dow Jones"
+author: "Tingrui Huang"
+date: "November 15, 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Preparation
+```{r }
+library(tidyverse)
+library(officer)
+library(readxl)
+# Selecting template
+pres1 <- read_pptx("C:/Users/Qilincaizi/Desktop/BU_MSSP/Fall_2018/MA615_Data_Sci_in_R/11.12_ppt_slides/class_example.pptx")
+# get the layout
+layout_summary(pres1)
+# Set master
+master <- "Default Design"
+layout_properties(x = pres1, layout = "Title Slide", master = master )
+```
+
+# Slide 1 - Introduction
+```{r }
+pres1 %<>%  add_slide(layout = "Title Slide", master = master) %>% 
+  ph_with_text(type = "ctrTitle", str = "Advantages of a Bear Market") %>%
+  ph_with_text(type = "subTitle", str = "Yes there is a positive side to a Bear Market!") %>%
+  ph_with_text(type = "body", str ="Team Members: Qixuan Zhang, Si Chen, Tingrui Huang, Chaoqun Yin")
+```
+
+# Slide 2 - Investing in Stocks
+```{r }
+pres1 %<>% add_slide(layout = "Two Content", master = master) %>%
+  ph_with_text(type="title", str="Investing in Stocks") %>%
+  ph_with_ul(type="body", index=1, str_list=c("1.Represents ownership in a firm ", 
+                                       "2.Earn a return in two ways",
+                                       "Price of the stock rises over time",
+                                       "Dividends are paid to the stockholder",
+                                       "3.Stockholders have claim on all assets"),
+                            level_list = c(1,1,2,2,1), fp_text(font.size = 24)) %>%
+  ph_with_ul(type = "body", index = 2, str_list = c("4. Right to vote for directors and on certain issues",
+                            "5. Two types",
+                            "Common stock",
+                            "Right to vote",
+                            "Receive dividends",
+                            "Preferred stock",
+                            "Receive a fixed dividend",
+                            "Do not usually vote"),
+             level_list =  c(1,1,2,3,3,2,3,3), fp_text(font.size = 24))
+```
+
+# Slide 3 - Sample Corporate Stock Certificate
+```{r }
+pres1 %<>% add_slide(layout = "Title and Content", master = master ) %>% 
+  ph_with_text(type = "title", str = "Investing in Stocks: Sample Corporate Stock Certificate") %>% 
+  ph_with_img( src = "C:/Users/Qilincaizi/Desktop/BU_MSSP/Fall_2018/MA615_Data_Sci_in_R/11.12_ppt_slides/Stock_Certificate.jpg")
+```
+
+# Slide 4 - What is a bear market?
+```{r }
+pres1 %<>% add_slide(layout = "Title and Content", master = master ) %>% 
+  ph_with_text(type = "title", str = "What is a Bear Market?") %>% 
+  ph_with_text(type = "body", str = "A decline of 15-20% of the broad market coupled with pessimistic sentiment underlying the stock market.")%>%
+  ph_with_img_at( src = "C:/Users/Qilincaizi/Desktop/BU_MSSP/Fall_2018/MA615_Data_Sci_in_R/11.12_ppt_slides/bear_market.jpg", width = 4.5, height = 2.5, left = 4.5, top = 4.5)
+```
+
+# Slide 5 - Stock Market Indexes
+```{r }
+top_30 <- read_excel("C:/Users/Qilincaizi/Desktop/BU_MSSP/Fall_2018/MA615_Data_Sci_in_R/11.12_ppt_slides/top_30.xlsx")
+top_5 <- top_30[1:5,]
+pres1 %<>% add_slide(layout="Title and Content",master=master) %>%
+  ph_with_text(type="title", str="Stock Market Indexes: The Dow Jones Industrial Average") %>%
+  ph_with_table(type="body",value=top_5)
+```
+
+# Slide 6 - Dow Jones trend
+```{r }
+DJI85 <- read_excel("C:/Users/Qilincaizi/Desktop/BU_MSSP/Fall_2018/MA615_Data_Sci_in_R/11.12_ppt_slides/DJI85.xlsx")
+options(scipen = 999)
+ggdji <- ggplot(data=DJI85, aes(x=Date, y=Volume))+geom_line()
+pres1 %<>% add_slide(layout="Title and Content",master=master) %>%
+  ph_with_text(type="title", str="Dow Jones") %>%
+  ph_with_gg(type="body",value=ggdji) 
+```
+
+# Slide 7 - The last Bear market
+```{r }
+pres1 %<>% add_slide(layout = "Title and Content", master = master) %>%
+  ph_with_text(type = "title", str = "The last Bear market") %>%
+  ph_with_ul(type="body", str_list = c("Sept. 30, 2002 Dow 7528", 
+                          "Jan. 5, 2004 Dow 10,568", 
+                          "Oct. 8, 2007 Dow 14093"), 
+             level_list = c(1, 1, 1))
+```
+
+# Slide 8 - What do I do in a Bear Market
+```{r }
+pres1 %<>% add_slide(layout = "Title and Content", master = master) %>%
+  ph_with_text(type = "title", str = "What do I do in a Bear Market") %>%
+  ph_with_ul(type="body", index=1, str_list = c("Decide whether this is a market correction or the start of something more",
+                                      "Review the stocks you own",
+                                      "Review stocks you wanted to own but were too expensive at time of research",
+                                      "Check your portfolio for balance or the type of stocks you own"),
+             level_list = c(1, 1, 1, 1), fp_text(font.size = 32))
+```
+
+# Print out
+```{r }
+remove_slide(pres1, index=1)
+print(pres1, target = "DowJones.pptx")
+```
+
+
+
+
+
+
+
+
+
