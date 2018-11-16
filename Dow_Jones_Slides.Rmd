@@ -15,7 +15,7 @@ library(tidyverse)
 library(officer)
 library(readxl)
 # Selecting template
-pres1 <- read_pptx("C:/Users/Qilincaizi/Desktop/BU_MSSP/Fall_2018/MA615_Data_Sci_in_R/11.12_ppt_slides/class_example.pptx")
+pres1 <- read_pptx("C:/Users/Qilincaizi/Desktop/BU_MSSP/Fall_2018/MA615_Data_Sci_in_R/11.12_ppt_slides/PPT_Slides_Using_R/class_example.pptx")
 # get the layout
 layout_summary(pres1)
 # Set master
@@ -56,7 +56,7 @@ pres1 %<>% add_slide(layout = "Two Content", master = master) %>%
 ```{r }
 pres1 %<>% add_slide(layout = "Title and Content", master = master ) %>% 
   ph_with_text(type = "title", str = "Investing in Stocks: Sample Corporate Stock Certificate") %>% 
-  ph_with_img( src = "C:/Users/Qilincaizi/Desktop/BU_MSSP/Fall_2018/MA615_Data_Sci_in_R/11.12_ppt_slides/Stock_Certificate.jpg")
+  ph_with_img( src = "C:/Users/Qilincaizi/Desktop/BU_MSSP/Fall_2018/MA615_Data_Sci_in_R/11.12_ppt_slides/PPT_Slides_Using_R/Stock_Certificate.jpg")
 ```
 
 # Slide 4 - What is a bear market?
@@ -64,12 +64,12 @@ pres1 %<>% add_slide(layout = "Title and Content", master = master ) %>%
 pres1 %<>% add_slide(layout = "Title and Content", master = master ) %>% 
   ph_with_text(type = "title", str = "What is a Bear Market?") %>% 
   ph_with_text(type = "body", str = "A decline of 15-20% of the broad market coupled with pessimistic sentiment underlying the stock market.")%>%
-  ph_with_img_at( src = "C:/Users/Qilincaizi/Desktop/BU_MSSP/Fall_2018/MA615_Data_Sci_in_R/11.12_ppt_slides/bear_market.jpg", width = 4.5, height = 2.5, left = 4.5, top = 4.5)
+  ph_with_img_at( src = "C:/Users/Qilincaizi/Desktop/BU_MSSP/Fall_2018/MA615_Data_Sci_in_R/11.12_ppt_slides/PPT_Slides_Using_R/bear_market.jpg", width = 4.5, height = 2.5, left = 4.5, top = 4.5)
 ```
 
 # Slide 5 - Stock Market Indexes
 ```{r }
-top_30 <- read_excel("C:/Users/Qilincaizi/Desktop/BU_MSSP/Fall_2018/MA615_Data_Sci_in_R/11.12_ppt_slides/top_30.xlsx")
+top_30 <- read_excel("C:/Users/Qilincaizi/Desktop/BU_MSSP/Fall_2018/MA615_Data_Sci_in_R/11.12_ppt_slides/PPT_Slides_Using_R/top_30.xlsx")
 top_5 <- top_30[1:5,]
 pres1 %<>% add_slide(layout="Title and Content",master=master) %>%
   ph_with_text(type="title", str="Stock Market Indexes: The Dow Jones Industrial Average") %>%
@@ -78,7 +78,7 @@ pres1 %<>% add_slide(layout="Title and Content",master=master) %>%
 
 # Slide 6 - Dow Jones trend
 ```{r }
-DJI85 <- read_excel("C:/Users/Qilincaizi/Desktop/BU_MSSP/Fall_2018/MA615_Data_Sci_in_R/11.12_ppt_slides/DJI85.xlsx")
+DJI85 <- read_excel("C:/Users/Qilincaizi/Desktop/BU_MSSP/Fall_2018/MA615_Data_Sci_in_R/11.12_ppt_slides/PPT_Slides_Using_R/DJI85.xlsx")
 options(scipen = 999)
 ggdji <- ggplot(data=DJI85, aes(x=Date, y=Volume))+geom_line()
 pres1 %<>% add_slide(layout="Title and Content",master=master) %>%
